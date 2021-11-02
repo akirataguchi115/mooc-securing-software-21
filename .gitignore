@@ -1,0 +1,4 @@
+.tmc.json
+*__pycache__/
+*.pyc
+.tmc_test_results.json
