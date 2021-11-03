@@ -7,6 +7,11 @@ def get_accessible_ports(address, min_port, max_port):
 	found_ports = []
 
 	# write code here
+	for port in range(min_port, max_port + 1):
+		effective_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+		if (effective_socket.connect_ex((address, port))) == 0:
+			found_ports.append(port)
+		effective_socket.close()
 
 	return found_ports
 
@@ -19,9 +24,10 @@ def main(argv):
 	for p in ports:
 		print(p)
 
+
 # This makes sure the main function is not called immediatedly
 # when TMC imports this module
-if __name__ == "__main__": 
+if __name__ == "__main__":
 	if len(sys.argv) != 4:
 		print('usage: python %s address min_port max_port' % sys.argv[0])
 	else:
