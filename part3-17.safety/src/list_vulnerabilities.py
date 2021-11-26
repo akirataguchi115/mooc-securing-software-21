@@ -4,7 +4,16 @@ import json
 
 
 def get_vulnerabilities(name, db):
-	return []
+	json_object = json.load(db)
+	for package in json_object:
+		if (package == name):
+			print("löyty")
+			information = []
+			for vulnerability in json_object[package]:
+				print(vulnerability)
+				information.append((vulnerability["id"], vulnerability["v"], vulnerability["cve"]))
+			print(json_object)
+	return information
 
 
 def main(argv):
